@@ -1,11 +1,11 @@
 const Users = require("../models/userModel");
 
-async function getUser(req, res) {
+async function handleGetUsers(req, res) {
   const allUser = await Users.find();
   res.status(200).json({ message: "get all user", data: allUser });
 }
 
-async function getSingleUser(req, res) {
+async function handleGetUser(req, res) {
   const userId = req.params.id;
 
   const singleUser = await Users.findOne({ _id: userId });
@@ -13,14 +13,14 @@ async function getSingleUser(req, res) {
   res.status(200).json({ message: "get single user", data: singleUser });
 }
 
-async function deleteUser(req, res) {
+async function handleDeleteUser(req, res) {
   const userId = req.params.id;
 
   await Users.findByIdAndDelete(userId);
   res.status(200).json({ message: "deleted user" });
 }
 
-async function updateUser(req, res) {
+async function handleEditUser(req, res) {
   const { fullName, userName, email, password, avatarUrl } = req.body;
   const userId = req.params.id;
 
@@ -33,4 +33,4 @@ async function updateUser(req, res) {
   res.status(200).json({ message: "successfully update", data: updateUser });
 }
 
-module.exports = { getUser, deleteUser, updateUser, getSingleUser };
+module.exports = { handleGetUsers, handleGetUser, handleDeleteUser, handleEditUser };

@@ -12,21 +12,13 @@ const userRouter = require("./routers/userRouter.js");
 //middleware
 const middleware = require("./controllers/middleware.js");
 
-// Model
-const Users = require("./models/userModel.js");
-const Threads = require("./models/threadModel.js");
-const Replies = require("./models/replyModel.js");
-const Bookmarks = require("./models/bookmarkModel.js");
+// Cookies-perser
+const cookieParser = require("cookie-parser");
 
 // MongoDB
 const MONGO_DB_URL = require("./config/dburl.config.js");
 const mongoose = require("mongoose");
 mongoose.connect(MONGO_DB_URL);
-
-// Cookies-perser
-const cookieParser = require("cookie-parser");
-// Port
-app.listen(8000);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -39,4 +31,5 @@ app.use(threadRouter);
 app.use(bookmarkRouter);
 app.use(userRouter);
 
-
+// Port
+app.listen(8000);

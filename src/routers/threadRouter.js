@@ -1,7 +1,6 @@
 const express = require("express");
 const threadRouter = express();
-const threadController = require("../controllers/threadController.js")
-
+const threadController = require("../controllers/threadController.js");
 
 // const jwt = require("jsonwebtoken");
 const Session = require("../models/sessionModel.js");
@@ -18,15 +17,14 @@ const Session = require("../models/sessionModel.js");
 //   }
 // });
 
-threadRouter.get("/api/threads", threadController.getThread);
+threadRouter.get("/api/threads", threadController.handleGetThreads);
 
-threadRouter.get("/api/threads/:id", threadController.getSingleThread);
+threadRouter.get("/api/threads/:id", threadController.handleGetThread);
 
-threadRouter.post("/api/threads", threadController.postThread);
+threadRouter.post("/api/threads", threadController.handlePostThread);
 
-threadRouter.patch("/api/threads/:id", threadController.updateThread)
+threadRouter.patch("/api/threads/:id", threadController.handleEditThread);
 
-threadRouter.delete("/api/threads/:id", threadController.deleteThread);
-
+threadRouter.delete("/api/threads/:id", threadController.handleDeleteThread);
 
 module.exports = threadRouter;

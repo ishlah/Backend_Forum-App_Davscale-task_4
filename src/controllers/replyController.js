@@ -1,6 +1,6 @@
 const Replies = require("../models/replyModel");
 
-async function addReply(req, res) {
+async function handlePostReply(req, res) {
   const { threadId, replyContent, userId } = req.body;
 
   const newReply = new Replies({
@@ -14,13 +14,13 @@ async function addReply(req, res) {
   res.status(201).json({message :"add new reply", data:saveReply})
 }
 
-async function getReply (req, res){
+async function handleGetReplies (req, res){
     const allReplies = await Replies.find().populate("threadId").populate("userId")
 
     res.status(200).json({message:"All Replies", data:allReplies})
 }
 
-async function deletReply(req,res){
+async function handleDeletReply(req,res){
     const replyId = req.params.id
 
     await Replies.findOneAndDelete({_id : replyId})
@@ -28,4 +28,4 @@ async function deletReply(req,res){
     res.status(200).send("Delet reply successfully")
 }
 
-module.exports = {addReply, getReply, deletReply}
+module.exports = {handleDeletReply, handleGetReplies, handlePostReply}

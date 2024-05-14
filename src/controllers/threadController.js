@@ -1,6 +1,6 @@
 const Threads = require("../models/threadModel");
 
-async function postThread(req, res) {
+async function handlePostThread(req, res) {
   const { title, category, content, userId } = req.body;
 
   const newThread = new Threads({
@@ -16,21 +16,21 @@ async function postThread(req, res) {
     .json({ message: "Success creat new thread", data: saveThread });
 }
 
-async function getThread(req, res) {
+async function handleGetThreads(req, res) {
   const allThreads = await Threads.find().populate("userId");
 
   res.status(200).json({ message: "get all threads", data: allThreads });
 }
 
-async function getSingleThread(req, res) {
+async function handleGetThread(req, res) {
   const threadId = req.params.id;
 
-  const singleThraed = await Threads.findById(threadId).populate("userId")
+  const singleThraed = await Threads.findById(threadId).populate("userId");
 
   res.status(200).json({ message: "get single thread", data: singleThraed });
 }
 
-async function updateThread(req, res) {
+async function handleEditThread(req, res) {
   const { title, category, content, userId } = req.body;
 
   const threadId = req.params.id;
@@ -46,7 +46,7 @@ async function updateThread(req, res) {
     .json({ message: "success update thread", data: updateThread });
 }
 
-async function deleteThread(req, res) {
+async function handleDeleteThread(req, res) {
   const threadId = req.params.id;
 
   await Threads.findOneAndDelete({ _id: threadId });
@@ -55,9 +55,9 @@ async function deleteThread(req, res) {
 }
 
 module.exports = {
-  postThread,
-  getThread,
-  updateThread,
-  deleteThread,
-  getSingleThread,
+  handlePostThread,
+  handleGetThreads,
+  handleGetThread,
+  handleEditThread,
+  handleDeleteThread,
 };
